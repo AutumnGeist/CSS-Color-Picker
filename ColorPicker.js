@@ -1,0 +1,305 @@
+const reds = [
+    "Crimson",
+    "DarkRed",
+    "FireBrick",
+    "IndianRed",
+    "Maroon",
+    "Red"
+];
+const pinks = [
+    "DeepPink",
+    "Fuchsia",    
+    "HotPink",
+    "LavenderBlush",
+    "LightCoral",
+    "LightPink",
+    "LightSalmon",
+    "Magenta",
+    "MediumVioletRed",
+    "MistyRose",
+    "PaleVioletRed",
+    "Pink",
+    "Salmon",
+    "Violet"
+];
+const blues = [
+    "AliceBlue",
+    "Blue",
+    "CornflowerBlue",
+    "DarkBlue",
+    "DeepSkyBlue",
+    "DodgerBlue",
+    "LightBlue",
+    "LightSkyBlue",
+    "LightSteelBlue",
+    "MediumBlue",
+    "MidnightBlue",
+    "Navy",
+    "PowderBlue",
+    "RoyalBlue",
+    "SkyBlue",
+    "SteelBlue"
+];
+const cyans = [
+    "Aqua",
+    "Aquamarine",
+    "CadetBlue",
+    "Cyan",
+    "DarkCyan",
+    "DarkTurquoise",
+    "LightCyan",
+    "LightSeaGreen",
+    "MediumAquamarine",
+    "MediumTurquoise",
+    "PaleTurquoise",
+    "Teal",
+    "Turquoise"
+];
+const yellows = [
+    "DarkGoldenRod",
+    "DarkKhaki",
+    "Gold",
+    "GoldenRod",
+    "Khaki",
+    "LemonChiffon",
+    "LightGoldenRodYellow",
+    "LightYellow",
+    "PaleGoldenRod",
+    "Yellow"
+];
+const whites = [
+    "Azure",
+    "FloralWhite",
+    "GhostWhite",
+    "HoneyDew",
+    "Ivory",
+    "MintCream",
+    "OldLace",
+    "SeaShell",
+    "Snow",
+    "White",
+    "WhiteSmoke"
+];
+const beiges = [
+    "AntiqueWhite",
+    "Beige",
+    "Bisque",
+    "BlanchedAlmond",
+    "BurlyWood",
+    "Cornsilk",
+    "Linen",
+    "Moccasin",
+    "NavajoWhite",
+    "PapayaWhip",
+    "PeachPuff",
+    "Wheat"
+];
+const greens = [
+    "Chartreuse",
+    "DarkGreen",
+    "DarkOliveGreen",
+    "ForestGreen",  
+    "Green",
+    "GreenYellow",  
+    "LawnGreen",
+    "LightGreen",
+    "Lime",
+    "LimeGreen",
+    "MediumSpringGreen",
+    "Olive",
+    "OliveDrab",
+    "PaleGreen",
+    "SeaGreen",
+    "SpringGreen",
+    "YellowGreen"
+];
+const oranges = [
+    "Chocolate",
+    "Coral",
+    "DarkOrange",
+    "Orange",
+    "OrangeRed",
+    "Tomato"
+];
+const grays = [
+    "Black",
+    "DarkGray",
+    "DarkSlateGray",
+    "DimGray",
+    "Gainsboro",
+    "Gray",
+    "LightGray",
+    "LightSlateGray",
+    "Silver",
+    "SlateGray"
+];
+const purples = [
+    "BlueViolet",
+    "DarkMagenta",
+    "DarkOrchid",
+    "DarkSlateBlue",
+    "DarkViolet",
+    "Indigo",
+    "Lavender",
+    "MediumOrchid",
+    "MediumPurple",
+    "MediumSlateBlue",
+    "Orchid",
+    "Plum",
+    "Purple",
+    "RebeccaPurple",
+    "SlateBlue",
+    "Thistle"
+];
+const browns = [
+    "Brown",
+    "Chocolate",
+    "Peru",
+    "SaddleBrown",
+    "RosyBrown",
+    "SandyBrown",
+    "Sienna",
+    "Tan"
+];
+//list the colors within the category selected
+function displayColors(color) {
+    //clear the background color if any
+    let body = document.getElementById("listColors");
+    body.style.backgroundColor = "";
+
+    //display colors of selected color category
+    let list = '<ul id="colorList" style="list-style-type:none; font-size:15pt">\n';
+    for(var i in color) {
+        list += `<li class="color" value=${color[i]} draggable ="true" style="padding:3px">${color[i]}</li>\n`;
+    }
+    list += `</ul>`;
+    document.getElementById("listColors").innerHTML = list;
+
+    //get the currently displayed color elements by class name
+    var currentColors = document.getElementsByClassName("color");
+    
+    //add click & drag event listeners to each color li element
+    for (var i = 0; i < currentColors.length; i++) {
+        let color = currentColors[i].getAttribute("value");
+        //due to closure scope issue, need to bind the color variable
+        currentColors[i].addEventListener("click", backgroundColor.bind(this, color), false); 
+        //drag eventListeners
+        currentColors[i].addEventListener("dragstart", dragStart);
+        currentColors[i].addEventListener("dragend", dragEnd);
+        
+    }
+}
+//change the background color to the color clicked on
+function backgroundColor(color1) {
+    console.log("You clicked on: " + color1);
+    let body = document.getElementById("listColors");
+    body.style.backgroundColor = color1;
+}
+
+//declare global variable for drag item
+let dragItem = null;
+//drag & drop functions
+function dragStart() {
+    console.log("drag started");
+    dragItem = this;
+    setTimeout(() => this.id = 'invisible', 0);
+}
+function dragEnd() {
+    console.log("drag ended");
+    this.id = 'item';
+    dragItem = null;
+}
+function dragOver(e) {
+    console.log('drag over');
+    e.preventDefault();
+    this.style.border="1px solid red";
+}
+function dragEnter(e) {
+    console.log('drag entered');
+    e.preventDefault();
+    this.style.border="1px solid red";
+}
+function dragLeave() {
+    console.log('drag left');
+    this.style.border="1px solid black";
+}
+function dragDrop() {
+    console.log('drag dropped');
+    console.log(this);
+    this.style.backgroundColor = dragItem.getAttribute("value");
+    this.innerHTML = dragItem.getAttribute("value");
+    this.style.border="1px solid black";
+}
+
+function start() {
+//add event listeners to color menu
+    let white = document.getElementById("white");
+    white.addEventListener("click", function() {
+        console.log("clicked on white");
+        displayColors(whites);
+    });
+    let beige = document.getElementById("beige");
+    beige.addEventListener("click", function() {
+        console.log("clicked on beige");
+        displayColors(beiges);
+    });
+    let pink = document.getElementById("pink");
+    pink.addEventListener("click", function() {
+        console.log("clicked on pink");
+        displayColors(pinks);
+    });
+    let red = document.getElementById("red");
+    red.addEventListener("click", function() {
+        displayColors(reds);
+    });
+    let orange = document.getElementById("orange");
+    orange.addEventListener("click", function() {
+        displayColors(oranges);
+    });
+    let yellow = document.getElementById("yellow");
+    yellow.addEventListener("click", function() {
+        displayColors(yellows);
+    });
+    let green = document.getElementById("green");
+    green.addEventListener("click", function() {
+        displayColors(greens);
+    });
+    let blue = document.getElementById("blue");
+    blue.addEventListener("click", function() {
+        displayColors(blues);
+    });
+    let purple = document.getElementById("purple");
+    purple.addEventListener("click", function() {
+        displayColors(purples);
+    });
+    let gray = document.getElementById("gray");
+    gray.addEventListener("click", function() {
+        displayColors(grays);
+    });
+    let brown = document.getElementById("brown");
+    brown.addEventListener("click", function() {
+        displayColors(browns);
+    });
+    let cyan = document.getElementById("cyan");
+    cyan.addEventListener("click", function() {
+        displayColors(cyans);
+    });
+    let div = document.getElementById("listColors");
+    div.addEventListener("click", backgroundColor, false);
+
+    //add drag event listener to columns
+    const columns = document.getElementsByClassName("column");
+    console.log(columns);
+    //using for...of loop to get values, not indexes
+    for(var c of columns) {
+        console.log(columns[c]);
+        c.addEventListener("dragover", dragOver);
+        c.addEventListener('dragenter', dragEnter);
+        c.addEventListener('dragleave', dragLeave);
+        c.addEventListener('drop', dragDrop);
+    }
+
+}
+
+window.addEventListener("load", start, false);
+
