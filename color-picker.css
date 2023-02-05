@@ -1,0 +1,45 @@
+body {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* header */
+.header {
+    background-image: url("rainbowBG.jpg");
+    background-size: 300px 100px;
+    
+}
+h1 {
+    color: white;
+    font-weight: bold;
+    text-shadow: 3px 2px black;
+}
+/* main content */
+
+/* 1st column */
+.list-group-item {
+    cursor: pointer;
+}
+.list-group-item:hover {
+    background-color: gainsboro;
+}
+
+/* 2nd column */
+.color:hover {
+    color: blue;
+    cursor: grab;
+}
+
+/* 3rd column */
+.italic {
+    font-style: italic;
+}
+.color-box {
+    border: 1px solid black;
+    border-bottom: none;
+    height: 100px;
+}
+.color-box:last-of-type {
+    border-bottom: 1px solid black;
+}
